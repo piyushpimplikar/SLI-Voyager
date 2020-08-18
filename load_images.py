@@ -22,13 +22,15 @@ images_labels = shuffle(shuffle(shuffle(shuffle(images_labels))))
 images, labels = zip(*images_labels)
 print("Length of images_labels", len(images_labels))
 
-train_images = images[:int(5/6*len(images))]
+train_images = images[:int(3/5*len(images))]
+# train_images = images[:int(5/6*len(images))]
 print("Length of train_images", len(train_images))
 with open("train_images", "wb") as f:
 	pickle.dump(train_images, f)
 del train_images
 
-train_labels = labels[:int(5/6*len(labels))]
+train_labels = labels[:int(3/5*len(labels))]
+# train_labels = labels[:int(5/6*len(labels))]
 print("Length of train_labels", len(train_labels))
 with open("train_labels", "wb") as f:
 	pickle.dump(train_labels, f)
@@ -46,13 +48,15 @@ with open("test_labels", "wb") as f:
 	pickle.dump(test_labels, f)
 del test_labels
 
-val_images = images[int(11/12*len(images)):]
+val_images = images[int(3/5*len(images)):]
+# val_images = images[int(11/12*len(images)):]
 print("Length of test_images", len(val_images))
 with open("val_images", "wb") as f:
 	pickle.dump(val_images, f)
 del val_images
 
-val_labels = labels[int(11/12*len(labels)):]
+val_labels = labels[int(3/5*len(labels)):]
+# val_labels = labels[int(11/12*len(labels)):]
 print("Length of val_labels", len(val_labels))
 with open("val_labels", "wb") as f:
 	pickle.dump(val_labels, f)

@@ -37,9 +37,9 @@ def cnn_model():
 	model.add(MaxPooling2D(pool_size=(5, 5), strides=(5, 5), padding='same'))
 	model.add(Flatten())
 	model.add(Dense(128, activation='relu'))
-	model.add(Dropout(0.2))
+	model.add(Dropout(0.4))
 	model.add(Dense(num_of_classes, activation='softmax'))
-	sgd = optimizers.SGD(lr=1e-2)
+	sgd = optimizers.Adamax(lr=1e-2)
 	model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 	filepath="cnn_model_keras2.h5"
 	checkpoint1 = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
@@ -65,10 +65,9 @@ def train():
 	val_labels = np_utils.to_categorical(val_labels)
 
 	print(val_labels.shape)
-
 	model, callbacks_list = cnn_model()
 	model.summary()
-	model.fit(train_images, train_labels, validation_data=(val_images, val_labels), epochs=15, batch_size=128, callbacks=callbacks_list)
+	model.fit(train_images, train_labels, validation_data=(val_images, val_labels), epochs=20, batch_size=1024, callbacks=callbacks_list)
 	scores = model.evaluate(val_images, val_labels, verbose=0)
 	print("CNN Error: %.2f%%" % (100-scores[1]*100))
 	model.save('cnn_model_keras2.h5')
